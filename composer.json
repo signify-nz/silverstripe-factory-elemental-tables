@@ -24,7 +24,6 @@
   "require": {
     "silverstripe/cms": "^4",
     "dnadesign/silverstripe-elemental": "^4",
-    "dynamic/silverstripe-elemental-baseobject": "^2",
     "symbiote/silverstripe-gridfieldextensions": "^3",
     "undefinedoffset/sortablegridfield": "^2"
   },
