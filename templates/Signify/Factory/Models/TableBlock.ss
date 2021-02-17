@@ -1,6 +1,11 @@
 <h2>$Title</h2>
+<% if $TableDescription %>
+  <p>$TableDescription</p>
+<% end_if %>
 <table>
-  <caption>$TableCaption</caption>
+  <% if $TableCaption %>
+    <caption>$TableCaption</caption>
+  <% end_if %>
   <% if $FirstRowIsHeader %>
     <% include TableHead %>
   <% end_if %>
