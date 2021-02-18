@@ -1,6 +1,6 @@
 <?php
 
-namespace Signify\Factory\Model;
+namespace Signify\Factory\Models;
 
 use Signify\Factory\Models\TableBlock;
 use SilverStripe\ORM\DataObject;

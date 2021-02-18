@@ -3,7 +3,7 @@
 namespace Signify\Factory\Models;
 
 use DNADesign\Elemental\Models\BaseElement;
-use Signify\Factory\Model\TableItem;
+use Signify\Factory\Models\TableItem;
 use SilverStripe\Forms\DropdownField;
 use SilverStripe\Forms\GridField\GridFieldButtonRow;
 use SilverStripe\Forms\GridField\GridFieldConfig;
