@@ -34,7 +34,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Signify\\Factory\\Models\\TableBlock\\": "src/"
+      "Signify\\Factory\\Models\\": "src/"
     }
   }
 }
