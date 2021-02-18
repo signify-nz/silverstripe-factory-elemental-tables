@@ -28,6 +28,7 @@ class TableBlock extends BaseElement
     private static $icon = 'font-icon-block-table-data';
 
     private static $db = [
+        'TableDescription' => 'HTMLText',
         'TableCaption' => 'Varchar',
         'NumberOfColumns' => 'Int',
         'FirstRowIsHeader' => 'Boolean',
@@ -59,25 +60,41 @@ class TableBlock extends BaseElement
         8 => 'Eight',
     ];
 
-
     /**
-     * @return DBField
+     * Returns a preview of the selected settings for display in the CMS.
+     * @return string
      */
-    public function getSummary()
+    public function getCMSPreview()
     {
-        $count = $this->TableItems->Count();
-        $suffix = $count === 1 ? 'row' : 'rows';
-        $summary = $this->TableCaption ? DBField::create_field('HTMLText', $this->TableCaption)->Summary(10) . '<br />' : '';
+        if ($numRows = $this->TableItems()->count()) {
+            $plurality = $numRows == 1 ? '' : 's';
+            return "$numRows row$plurality. $this->NumberOfColumns columns.";
+        }
 
-        return DBField::create_field('HTMLText', $summary . ' <span class="el-meta">Contains ' . $count . ' ' . $suffix . '</span>');
+        return 'Not configured or populated yet';
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    protected function provideBlockSchema()
+    {
+        $blockSchema = parent::provideBlockSchema();
+        $blockSchema['content'] = $this->getCMSPreview();
+        return $blockSchema;
+    }
 
+    /**
+     * {@inheritDoc}
+     */
     public function getType()
     {
         return 'Table';
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function inlineEditable()
     {
         return false;
