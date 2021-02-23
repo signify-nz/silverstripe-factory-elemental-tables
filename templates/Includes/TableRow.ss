@@ -1,6 +1,10 @@
 <tr>
   <% if $Cell1 %>
-    <td>$Cell1</td>
+    <% if $th %>
+      <th>$Cell1</th>
+    <% else %>
+      <td>$Cell1</td>
+    <% end_if %>
   <% end_if %>
   <% if $Cell2 %>
     <td>$Cell2</td>
