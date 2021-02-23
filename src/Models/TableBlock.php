@@ -5,9 +5,13 @@ namespace Signify\Factory\Models;
 use DNADesign\Elemental\Models\BaseElement;
 use Signify\Factory\Models\TableItem;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
+use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldButtonRow;
 use SilverStripe\Forms\GridField\GridFieldConfig;
+use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\GridField\GridFieldToolbarHeader;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\TextareaField;
@@ -34,6 +38,7 @@ class TableBlock extends BaseElement
         'TableCaption' => 'Varchar',
         'NumberOfColumns' => 'Int',
         'FirstRowIsHeader' => 'Boolean',
+        'FirstColumnIsHeader' => 'Boolean',
         'LastRowIsFooter' => 'Boolean',
     ];
 
@@ -48,6 +53,7 @@ class TableBlock extends BaseElement
     private static $defaults = [
         'NumberOfColumns'  => 4,
         'FirstRowIsHeader' => true,
+        'FirstColumnIsHeader' => false,
         'LastRowIsFooter' => false,
     ];
 
@@ -69,7 +75,8 @@ class TableBlock extends BaseElement
         $tableDescription = HTMLEditorField::create(
             'TableDescription'
         );
-        $tableDescription->setRows(4);
+        $tableDescription->setEditorConfig('tableTinyMCE');
+        $tableDescription->setRows(6);
         $fields->replaceField('TableDescription', $tableDescription);
 
         $tableCaption = TextareaField::create(
@@ -78,35 +85,32 @@ class TableBlock extends BaseElement
         $tableCaption->setRows(2);
         $fields->replaceField('TableCaption', $tableCaption);
 
-        // Only modify relation fields if DO present in DB
-        if ($this->ID) {
-            $gridField = $fields->fieldByName('Root.TableItems.TableItems');
+        $gridField = $fields->fieldByName('Root.TableItems.TableItems');
 
-            // Make a custom config supporting inline editing
-            $config = GridFieldConfig::create()
-                ->addComponent(new GridFieldButtonRow('before'))
-                ->addComponent(new GridFieldToolbarHeader())
-                ->addComponent(new GridFieldTitleHeader())
-                ->addComponent($edCols = new GridFieldEditableColumns())
+        if ($gridField) {
+            $gridConfig = GridFieldConfig::create();
+            $gridConfig
+                ->addComponent(new GridFieldAddNewButton())
+                ->addComponent(new GridFieldEditableColumns())
                 ->addComponent(new GridFieldDeleteAction())
-                ->addComponent(new GridFieldAddNewInlineButton())
                 ->addComponent(new GridFieldSortableRows('SortOrder'));
-            $gridField->setConfig($config);
 
-            // Modify {@see TextAreaField} instances to have 2 rows by default
-            $cols = $this->NumberOfColumns;
-            $disp = [];
-            foreach (range(1, $cols) as $i) {
-                $prop = 'Cell' . $i;
-                $disp[$prop] = function ($record, $column, $grid) {
-                    return HTMLEditorField::create($column)->setRows(2);
+            $gridField->setConfig($gridConfig);
+
+            $dataColumns = $gridConfig->getComponentByType(GridFieldDataColumns::class);
+
+            $columns = [];
+            foreach (range(1, $this->NumberOfColumns) as $i) {
+                $colName = 'Cell' . $i;
+                $columns[$colName] = function ($record, $column, $grid) {
+                    return HTMLEditorField::create($column)->setEditorConfig('cellTinyMCE')->setRows(4);
                 };
             }
 
-            $edCols->setDisplayFields($disp);
-        };
+            $dataColumns->setDisplayFields($columns);
+        }
 
-        // Use dropdown field so we can limit he range of numbers
+        // Use dropdown field so we can limit the range of numbers
         $numberOfColumns = DropdownField::create(
             'NumberOfColumns',
             'Number of Columns',
@@ -116,27 +120,6 @@ class TableBlock extends BaseElement
             )
         );
         $fields->replaceField('NumberOfColumns', $numberOfColumns);
-
-        $getFields = function (&$fields, $fieldNames, $tabName) {
-            foreach ($fieldNames as $fieldName) {
-                $field = $fields->dataFieldByName($fieldName);
-
-                if ($field) {
-                    $fields->addFieldToTab($tabName, $field);
-                }
-            }
-        };
-
-        // Move column setting fields to columns
-        $getFields(
-            $fields,
-            [
-                'NumberOfColumns',
-                'FirstRowIsHeader',
-                'LastRowIsFooter'
-            ],
-            'Root.Settings'
-        );
 
         return $fields;
     }
