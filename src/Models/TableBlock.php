@@ -45,6 +45,13 @@ class TableBlock extends BaseElement
         'AlignHeadColH' => "Enum('left,center,right', 'left')",
         'AlignBodyCelV' => "Enum('top,middle,bottom','top')",
         'AlignBodyCelH' => "Enum('left,center,right', 'left')",
+        'BorderOuter' => 'Boolean',
+        'BorderHeader' => 'Boolean',
+        'BorderFooter' => 'Boolean',
+        'BorderFirstColumn' => 'Boolean',
+        'BorderRows' => 'Boolean',
+        'BorderCols' => 'Boolean',
+        'ZebraRows' => 'Boolean',
     ];
 
     private static $has_many = [
@@ -163,17 +170,30 @@ class TableBlock extends BaseElement
         }
 
         foreach ([
-            'AlignHeadRowV' => 'FirstRowIsHeader',
-            'AlignFootRowV' => 'LastRowIsFooter',
-            'AlignHeadColV' => 'FirstColumnIsHeader',
-        ] as $name => $fieldName) {
-            $fields->removeFieldFromTab('Root.Main', $fieldName);
-            $item = CheckboxField::create($fieldName);
-            $fields->insertBefore($name, $item);
+            'FirstRowIsHeader' => 'ExtraClass',
+            'BorderHeader' => 'FirstRowIsHeader',
+            'LastRowIsFooter' => 'AlignHeadRowH',
+            'BorderFooter' => 'LastRowIsFooter',
+            'FirstColumnIsHeader' => 'AlignFootRowH',
+            'BorderFirstColumn' => 'FirstColumnIsHeader',
+        ] as $field => $previous) {
+            $fields->removeFieldFromTab('Root.Main', $field);
+            $item = CheckboxField::create($field);
+            $fields->insertAfter($previous, $item);
         }
 
         $cellSettings = LiteralField::create('CellSettings', '<p>Cell Settings</p>');
-        $fields->insertBefore('AlignBodyCelV', $cellSettings);
+        $fields->insertAfter('AlignHeadColH', $cellSettings);
+        foreach ([
+            'BorderOuter' => 'CellSettings',
+            'BorderRows' => 'BorderOuter',
+            'BorderCols' => 'BorderRows',
+            'ZebraRows' => 'BorderCols',
+        ] as $field => $previous) {
+            $fields->removeFieldFromTab('Root.Main', $field);
+            $item = CheckboxField::create($field);
+            $fields->insertAfter($previous, $item);
+        }
 
         $fields->removeFieldFromTab('Root.Settings', 'ExtraClass');
         Requirements::customCSS("#Root_TableItems .form__field-holder.form__field-holder--no-label {
