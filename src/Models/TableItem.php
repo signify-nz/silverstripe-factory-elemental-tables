@@ -34,6 +34,17 @@ class TableItem extends DataObject
 
     private static $default_sort = 'SortOrder';
 
+    private static $summary_fields = [
+        'Cell1.Summary' => 'Col 1',
+        'Cell2.Summary' => 'Col 2',
+        'Cell3.Summary' => 'Col 3',
+        'Cell4.Summary' => 'Col 4',
+        'Cell5.Summary' => 'Col 5',
+        'Cell6.Summary' => 'Col 6',
+        'Cell7.Summary' => 'Col 7',
+        'Cell8.Summary' => 'Col 8',
+    ];
+
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
@@ -44,7 +55,6 @@ class TableItem extends DataObject
             $column = 'Cell' . $i;
             $colField = HTMLEditorField::create($column)
                 ->setEditorConfig('cellTinyMCE')
-                ->setValue('<p>&nbsp;</p>')
                 ->setRows(4);
             $fields->replaceField($column, $colField);
         }
