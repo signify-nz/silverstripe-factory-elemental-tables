@@ -10,6 +10,7 @@ use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldConfig;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
+use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
@@ -72,35 +73,61 @@ class TableBlock extends BaseElement
         $tableDescription->setRows(6);
         $fields->replaceField('TableDescription', $tableDescription);
 
-        $tableCaption = TextareaField::create(
-            'TableCaption'
-        );
+        $tableCaption = TextareaField::create('TableCaption');
         $tableCaption->setRows(2);
         $fields->replaceField('TableCaption', $tableCaption);
 
         $gridField = $fields->fieldByName('Root.TableItems.TableItems');
 
         if ($gridField) {
-            $gridConfig = GridFieldConfig::create();
-            $gridConfig
-                ->addComponent(new GridFieldAddNewButton())
-                ->addComponent(new GridFieldEditableColumns())
-                ->addComponent(new GridFieldDeleteAction())
-                ->addComponent(new GridFieldSortableRows('SortOrder'));
+            // $gridConfig = GridFieldConfig::create();
+            // $gridConfig
 
-            $gridField->setConfig($gridConfig);
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldButtonRow())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldAddNewButton())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldToolbarHeader())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldSortableHeader)
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldFilterHeader())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldDataColumns())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldEditButton())
+            // ->addComponent(new \SilverStripe\Versioned\GridFieldArchiveAction())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldDeleteAction())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridField_ActionMenu())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldPageCount())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldPaginator())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldDetailForm())
+            // ->addComponent(new \SilverStripe\Versioned\VersionedGridFieldState\VersionedGridFieldState())
+            // ->addComponent(new \SilverStripe\Forms\GridField\GridState_Component())
 
-            $dataColumns = $gridConfig->getComponentByType(GridFieldDataColumns::class);
+            // ->addComponent(new GridFieldAddNewButton())
+            // ->addComponent(new GridFieldEditableColumns())
+            // ->addComponent(new GridFieldEditButton())
+            // ->addComponent(new GridFieldDeleteAction())
+            $gridConfig = $gridField->getConfig();
+            $gridConfig->addComponent(new GridFieldSortableRows('SortOrder'))
+                ->addComponent(new GridFieldDeleteAction());
 
-            $columns = [];
-            foreach (range(1, $this->NumberOfColumns) as $i) {
-                $colName = 'Cell' . $i;
-                $columns[$colName] = function ($record, $column, $grid) {
-                    return HTMLEditorField::create($column)->setEditorConfig('cellTinyMCE')->setRows(4)->setTitle('');
-                };
-            }
+            // $gridField->setConfig($gridConfig);
 
-            $dataColumns->setDisplayFields($columns);
+            // $dataColumns = $gridConfig->getComponentByType(new GridFieldDataColumns());
+
+            // $columns = [];
+            // foreach (range(1, $this->NumberOfColumns) as $i) {
+            //     $colName = 'Cell' . $i;
+            //     $columns[$colName] = function ($record, $column, $gridField) {
+            //         $colField = HTMLEditorField::create($column);
+            //         $colField->setEditorConfig('cellTinyMCE')
+            //             ->setRows(4)
+            //             ->setTitle('');
+            //         return $colField;
+            //     };
+            //     $columns[$colName] = function ($record, $column, $gridField) {
+            //         return $record->{$column};
+            //     };
+            // }
+
+            // $dataColumns->setDisplayFields($columns);
         }
 
         // Use dropdown field so we can limit the range of numbers
@@ -114,47 +141,47 @@ class TableBlock extends BaseElement
         );
         $fields->replaceField('NumberOfColumns', $numberOfColumns);
 
-        foreach ([
-            'AlignHeadRowV' => 'Header Vertical Alignment',
-            'AlignHeadRowH' => 'Header Horizontal Alignment',
-            'AlignFootRowV' => 'Footer Vertical Alignment',
-            'AlignFootRowH' => 'Footer Horizontal Alignment',
-            'AlignHeadColV' => 'Header Column Vertical Alignment',
-            'AlignHeadColH' => 'Header Column Horizontal Alignment',
-            'AlignCellV' => 'Cell Vertical Alignment',
-            'AlignCellH' => 'Cell Horizontal Alignment',
-        ] as $key => $value) {
-            $fields->removeFieldFromTab('Root.Main', $key);
-            $fields->addFieldToTab(
-                'Root.Settings',
-                DropdownField::create(
-                    $key,
-                    $value,
-                    $this->dbObject($key)->enumValues()
-                )
-            );
-        }
+        // foreach ([
+        //     'AlignHeadRowV' => 'Header Vertical Alignment',
+        //     'AlignHeadRowH' => 'Header Horizontal Alignment',
+        //     'AlignFootRowV' => 'Footer Vertical Alignment',
+        //     'AlignFootRowH' => 'Footer Horizontal Alignment',
+        //     'AlignHeadColV' => 'Header Column Vertical Alignment',
+        //     'AlignHeadColH' => 'Header Column Horizontal Alignment',
+        //     'AlignCellV' => 'Cell Vertical Alignment',
+        //     'AlignCellH' => 'Cell Horizontal Alignment',
+        // ] as $key => $value) {
+        //     $fields->removeFieldFromTab('Root.Main', $key);
+        //     $fields->addFieldToTab(
+        //         'Root.Settings',
+        //         DropdownField::create(
+        //             $key,
+        //             $value,
+        //             $this->dbObject($key)->enumValues()
+        //         )
+        //     );
+        // }
 
-        foreach ([
-            'AlignHeadRowV' => 'FirstRowIsHeader',
-            'AlignFootRowV' => 'LastRowIsFooter',
-            'AlignHeadColV' => 'FirstColumnIsHeader',
-        ] as $name => $fieldName) {
-            $fields->removeFieldFromTab('Root.Main', $fieldName);
-            $item = CheckboxField::create($fieldName);
-            $fields->insertBefore($name, $item);
-        }
+        // foreach ([
+        //     'AlignHeadRowV' => 'FirstRowIsHeader',
+        //     'AlignFootRowV' => 'LastRowIsFooter',
+        //     'AlignHeadColV' => 'FirstColumnIsHeader',
+        // ] as $name => $fieldName) {
+        //     $fields->removeFieldFromTab('Root.Main', $fieldName);
+        //     $item = CheckboxField::create($fieldName);
+        //     $fields->insertBefore($name, $item);
+        // }
 
-        $cellSettings = LiteralField::create('CellSettings', '<p>Cell Settings</p>');
-        $fields->insertBefore('AlignCellV', $cellSettings);
+        // $cellSettings = LiteralField::create('CellSettings', '<p>Cell Settings</p>');
+        // $fields->insertBefore('AlignCellV', $cellSettings);
 
-        $fields->removeFieldFromTab('Root.Settings', 'ExtraClass');
-        Requirements::customCSS("#Root_TableItems .form__field-holder.form__field-holder--no-label {
-            flex: 1 0 auto;
-            max-width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-          }");
+        // $fields->removeFieldFromTab('Root.Settings', 'ExtraClass');
+        // Requirements::customCSS("#Root_TableItems .form__field-holder.form__field-holder--no-label {
+        //     flex: 1 0 auto;
+        //     max-width: 100%;
+        //     margin-left: 0;
+        //     margin-right: 0;
+        //   }");
         return $fields;
     }
 
