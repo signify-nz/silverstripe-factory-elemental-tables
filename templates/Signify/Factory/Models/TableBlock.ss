@@ -3,7 +3,15 @@
   <% if $TableDescription %>
     $TableDescription
   <% end_if %>
-  <table>
+  <table class="table
+table--thead-valign-{$AlignHeadRowV}
+table--thead-halign-{$AlignHeadRowH}
+table--tfoot-valign-{$AlignFootRowV}
+table--tfoot-halign-{$AlignFootRowH}
+table--th-valign-{$AlignHeadColV}
+table--th-halign-{$AlignHeadColH}
+table--td-valign-{$AlignBodyCelV}
+table--td-halign-{$AlignBodyCelH}">
     <% if $TableCaption %>
       <caption>$TableCaption</caption>
     <% end_if %>
