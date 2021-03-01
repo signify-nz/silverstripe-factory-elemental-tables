@@ -43,8 +43,8 @@ class TableBlock extends BaseElement
         'AlignFootRowH' => "Enum('left,center,right', 'left')",
         'AlignHeadColV' => "Enum('top,middle,bottom','top')",
         'AlignHeadColH' => "Enum('left,center,right', 'left')",
-        'AlignCellV' => "Enum('top,middle,bottom','top')",
-        'AlignCellH' => "Enum('left,center,right', 'left')",
+        'AlignBodyCelV' => "Enum('top,middle,bottom','top')",
+        'AlignBodyCelH' => "Enum('left,center,right', 'left')",
     ];
 
     private static $has_many = [
@@ -141,47 +141,47 @@ class TableBlock extends BaseElement
         );
         $fields->replaceField('NumberOfColumns', $numberOfColumns);
 
-        // foreach ([
-        //     'AlignHeadRowV' => 'Header Vertical Alignment',
-        //     'AlignHeadRowH' => 'Header Horizontal Alignment',
-        //     'AlignFootRowV' => 'Footer Vertical Alignment',
-        //     'AlignFootRowH' => 'Footer Horizontal Alignment',
-        //     'AlignHeadColV' => 'Header Column Vertical Alignment',
-        //     'AlignHeadColH' => 'Header Column Horizontal Alignment',
-        //     'AlignCellV' => 'Cell Vertical Alignment',
-        //     'AlignCellH' => 'Cell Horizontal Alignment',
-        // ] as $key => $value) {
-        //     $fields->removeFieldFromTab('Root.Main', $key);
-        //     $fields->addFieldToTab(
-        //         'Root.Settings',
-        //         DropdownField::create(
-        //             $key,
-        //             $value,
-        //             $this->dbObject($key)->enumValues()
-        //         )
-        //     );
-        // }
+        foreach ([
+            'AlignHeadRowV' => 'Header Vertical Alignment',
+            'AlignHeadRowH' => 'Header Horizontal Alignment',
+            'AlignFootRowV' => 'Footer Vertical Alignment',
+            'AlignFootRowH' => 'Footer Horizontal Alignment',
+            'AlignHeadColV' => 'Header Column Vertical Alignment',
+            'AlignHeadColH' => 'Header Column Horizontal Alignment',
+            'AlignBodyCelV' => 'Cell Vertical Alignment',
+            'AlignBodyCelH' => 'Cell Horizontal Alignment',
+        ] as $key => $value) {
+            $fields->removeFieldFromTab('Root.Main', $key);
+            $fields->addFieldToTab(
+                'Root.Settings',
+                DropdownField::create(
+                    $key,
+                    $value,
+                    $this->dbObject($key)->enumValues()
+                )
+            );
+        }
 
-        // foreach ([
-        //     'AlignHeadRowV' => 'FirstRowIsHeader',
-        //     'AlignFootRowV' => 'LastRowIsFooter',
-        //     'AlignHeadColV' => 'FirstColumnIsHeader',
-        // ] as $name => $fieldName) {
-        //     $fields->removeFieldFromTab('Root.Main', $fieldName);
-        //     $item = CheckboxField::create($fieldName);
-        //     $fields->insertBefore($name, $item);
-        // }
+        foreach ([
+            'AlignHeadRowV' => 'FirstRowIsHeader',
+            'AlignFootRowV' => 'LastRowIsFooter',
+            'AlignHeadColV' => 'FirstColumnIsHeader',
+        ] as $name => $fieldName) {
+            $fields->removeFieldFromTab('Root.Main', $fieldName);
+            $item = CheckboxField::create($fieldName);
+            $fields->insertBefore($name, $item);
+        }
 
-        // $cellSettings = LiteralField::create('CellSettings', '<p>Cell Settings</p>');
-        // $fields->insertBefore('AlignCellV', $cellSettings);
+        $cellSettings = LiteralField::create('CellSettings', '<p>Cell Settings</p>');
+        $fields->insertBefore('AlignBodyCelV', $cellSettings);
 
-        // $fields->removeFieldFromTab('Root.Settings', 'ExtraClass');
-        // Requirements::customCSS("#Root_TableItems .form__field-holder.form__field-holder--no-label {
-        //     flex: 1 0 auto;
-        //     max-width: 100%;
-        //     margin-left: 0;
-        //     margin-right: 0;
-        //   }");
+        $fields->removeFieldFromTab('Root.Settings', 'ExtraClass');
+        Requirements::customCSS("#Root_TableItems .form__field-holder.form__field-holder--no-label {
+            flex: 1 0 auto;
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+          }");
         return $fields;
     }
 
