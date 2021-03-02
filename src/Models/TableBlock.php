@@ -244,4 +244,13 @@ class TableBlock extends BaseElement
     {
         return false;
     }
+
+    public function getHeadingRow()
+    {
+        $headings = '';
+        if ($this->FirstRowIsHeader == true) {
+            $headings = $this->TableItems()->First();
+        }
+        return $headings;
+    }
 }
