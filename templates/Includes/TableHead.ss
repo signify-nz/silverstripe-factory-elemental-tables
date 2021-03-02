@@ -1,4 +1,4 @@
-<thead>
+<thead class="hide--sm">
   <% with $TableItems.First() %>
     <tr>
       <% if $Cell1 %>
