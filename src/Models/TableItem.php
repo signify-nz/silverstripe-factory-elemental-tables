@@ -35,6 +35,7 @@ class TableItem extends DataObject
     private static $default_sort = 'SortOrder';
 
     private static $summary_fields = [
+        'SortOrder' => 'Row',
         'Cell1.Summary' => 'Col 1',
         'Cell2.Summary' => 'Col 2',
         'Cell3.Summary' => 'Col 3',
@@ -55,7 +56,7 @@ class TableItem extends DataObject
             $column = 'Cell' . $i;
             $colField = HTMLEditorField::create($column)
                 ->setEditorConfig('cellTinyMCE')
-                ->setRows(4);
+                ->setRows(8);
             $fields->replaceField($column, $colField);
         }
         foreach (range($cols + 1, 8) as $i) {
