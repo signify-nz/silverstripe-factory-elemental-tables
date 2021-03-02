@@ -37,7 +37,7 @@ table-block__table--td-halign-{$AlignBodyCelH}
             <% include TableRow th=$Up.FirstColumnIsHeader %>
           <% end_if %>
         <% else_if not $First || $Last %>
-          <% include TableRow th=$Up.FirstColumnIsHeader %>
+          <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow %>
         <% end_if %>
       <% end_loop %>
     </tbody>
