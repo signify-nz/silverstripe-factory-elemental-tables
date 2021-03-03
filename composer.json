@@ -27,11 +27,6 @@
     "symbiote/silverstripe-gridfieldextensions": "^3",
     "undefinedoffset/sortablegridfield": "^2"
   },
-  "extra": {
-    "expose": [
-      "client/dist"
-    ]
-  },
   "autoload": {
     "psr-4": {
       "Signify\\Factory\\": "src/"
