@@ -24,7 +24,7 @@ table-block__table--td-halign-{$AlignBodyCelH}
       <caption>$TableCaption</caption>
     <% end_if %>
     <% if $FirstRowIsHeader %>
-      <% include TableHead %>
+      <% include TableHead widths=$ColumnProportions %>
     <% end_if %>
     <tbody>
       <% loop $TableItems %>
