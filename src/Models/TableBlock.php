@@ -14,6 +14,8 @@ use SilverStripe\Forms\GridField\GridFieldEditButton;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\ORM\FieldType\DBField;
 use SilverStripe\View\Requirements;
 use Symbiote\GridFieldExtensions\GridFieldEditableColumns;
 use UndefinedOffset\SortableGridField\Forms\GridFieldSortableRows;
@@ -51,6 +53,14 @@ class TableBlock extends BaseElement
         'BorderFirstColumn' => 'Boolean',
         'BorderRows' => 'Boolean',
         'BorderCols' => 'Boolean',
+        'PropCol1' => 'Int',
+        'PropCol2' => 'Int',
+        'PropCol3' => 'Int',
+        'PropCol4' => 'Int',
+        'PropCol5' => 'Int',
+        'PropCol6' => 'Int',
+        'PropCol7' => 'Int',
+        'PropCol8' => 'Int',
         'ZebraRows' => 'Boolean',
     ];
 
@@ -195,6 +205,34 @@ class TableBlock extends BaseElement
             $fields->insertAfter($previous, $item);
         }
 
+        $cellSettings = LiteralField::create('PropSettings', '<p>Percentage of table width for column:</p>');
+        $fields->insertAfter('AlignBodyCelH', $cellSettings);
+        $cols = $this->NumberOfColumns;
+        foreach (range(1, $cols) as $i) {
+            $fieldName = 'PropCol' . $i;
+            $fieldTitle = 'Proportion allocated to Column ' . $i;
+            $field = DropdownField::create(
+                $fieldName,
+                $fieldTitle,
+                [
+                    10 => '10%',
+                    20 => '20%',
+                    30 => '30%',
+                    40 => '40%',
+                    50 => '50%',
+                    60 => '60%',
+                    70 => '70%',
+                    80 => '80%',
+                    90 => '90%',
+                ],
+            );
+            $fields->addFieldToTab('Root.Settings', $field);
+        }
+        foreach (range($cols + 1, 8) as $i) {
+            $fieldName = 'PropCol' . $i;
+            $fields->removeByName($fieldName);
+        }
+
         $fields->removeFieldFromTab('Root.Settings', 'ExtraClass');
         Requirements::customCSS("#Root_TableItems .form__field-holder.form__field-holder--no-label {
             flex: 1 0 auto;
@@ -247,10 +285,22 @@ class TableBlock extends BaseElement
 
     public function getHeadingRow()
     {
-        $headings = '';
+        $heading = '';
         if ($this->FirstRowIsHeader == true) {
-            $headings = $this->TableItems()->First();
+            $heading = $this->TableItems()->First();
         }
-        return $headings;
+        return $heading;
+    }
+
+    public function getColumnProportions()
+    {
+        $proportions = ArrayList::create();
+        $cols = $this->NumberOfColumns;
+        foreach (range(1, $cols) as $i) {
+            $key = 'PropCol' . $i;
+            $value = $this->$key;
+            $proportions[] = DBField::create_field('HTMLFragment', $value, $key);
+        }
+        return $proportions;
     }
 }
