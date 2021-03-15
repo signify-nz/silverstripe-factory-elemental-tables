@@ -228,7 +228,7 @@ class TableBlock extends BaseElement
             );
             $fields->addFieldToTab('Root.Settings', $field);
         }
-        foreach (range($cols + 1, 8) as $i) {
+        foreach (range($cols + 1, 9) as $i) {
             $fieldName = 'PropCol' . $i;
             $fields->removeByName($fieldName);
         }

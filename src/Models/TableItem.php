@@ -59,7 +59,7 @@ class TableItem extends DataObject
                 ->setRows(8);
             $fields->replaceField($column, $colField);
         }
-        foreach (range($cols + 1, 8) as $i) {
+        foreach (range($cols + 1, 9) as $i) {
             $column = 'Cell' . $i;
             $fields->removeByName($column);
         }
