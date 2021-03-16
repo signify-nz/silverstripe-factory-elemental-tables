@@ -28,21 +28,25 @@ table-block__table--td-halign-{$AlignBodyCelH}
     <% end_if %>
     <tbody>
       <% loop $TableItems %>
-        <% if $First %>
+        <% if $First && not $Last %>
           <% if not $Up.FirstRowIsHeader %>
-            <% include TableRow th=$Up.FirstColumnIsHeader %>
+            <% include TableRow th=$Up.FirstColumnIsHeader, widths=$Up.ColumnProportions %>
           <% end_if %>
-        <% else_if $Last %>
+        <% else_if $Last && not $First %>
           <% if not $Up.LastRowIsFooter %>
-            <% include TableRow th=$Up.FirstColumnIsHeader %>
+            <% include TableRow th=$Up.FirstColumnIsHeader, widths=$Up.ColumnProportions %>
           <% end_if %>
-        <% else_if not $First || $Last %>
-          <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow %>
+        <% else_if $First && $Last %>
+          <% if not $Up.FirstRowIsHeader && not $Up.LastRowIsFooter %>
+            <% include TableRow th=$Up.FirstColumnIsHeader, widths=$Up.ColumnProportions %>
+          <% end_if %>
+        <% else_if not $First && not $Last %>
+          <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, widths=$Up.ColumnProportions %>
         <% end_if %>
       <% end_loop %>
     </tbody>
     <% if $LastRowIsFooter %>
-      <% include TableFoot %>
+      <% include TableFoot widths=$ColumnProportions %>
     <% end_if %>
   </table>
 </div>
