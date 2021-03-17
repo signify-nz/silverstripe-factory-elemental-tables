@@ -6,11 +6,13 @@ use DNADesign\Elemental\Models\BaseElement;
 use Signify\Factory\Models\TableItem;
 use SilverStripe\Forms\CheckboxField;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter;
 use SilverStripe\Forms\GridField\GridFieldAddNewButton;
 use SilverStripe\Forms\GridField\GridFieldConfig;
 use SilverStripe\Forms\GridField\GridFieldDataColumns;
 use SilverStripe\Forms\GridField\GridFieldDeleteAction;
 use SilverStripe\Forms\GridField\GridFieldEditButton;
+use SilverStripe\Forms\GridField\GridFieldFilterHeader;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\TextareaField;
@@ -97,54 +99,11 @@ class TableBlock extends BaseElement
         $gridField = $fields->fieldByName('Root.TableItems.TableItems');
 
         if ($gridField) {
-            // $gridConfig = GridFieldConfig::create();
-            // $gridConfig
-
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldButtonRow())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldAddNewButton())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldAddExistingAutocompleter())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldToolbarHeader())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldSortableHeader)
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldFilterHeader())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldDataColumns())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldEditButton())
-            // ->addComponent(new \SilverStripe\Versioned\GridFieldArchiveAction())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldDeleteAction())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridField_ActionMenu())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldPageCount())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldPaginator())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridFieldDetailForm())
-            // ->addComponent(new \SilverStripe\Versioned\VersionedGridFieldState\VersionedGridFieldState())
-            // ->addComponent(new \SilverStripe\Forms\GridField\GridState_Component())
-
-            // ->addComponent(new GridFieldAddNewButton())
-            // ->addComponent(new GridFieldEditableColumns())
-            // ->addComponent(new GridFieldEditButton())
-            // ->addComponent(new GridFieldDeleteAction())
             $gridConfig = $gridField->getConfig();
             $gridConfig->addComponent(new GridFieldSortableRows('SortOrder'))
                 ->addComponent(new GridFieldDeleteAction());
-
-            // $gridField->setConfig($gridConfig);
-
-            // $dataColumns = $gridConfig->getComponentByType(new GridFieldDataColumns());
-
-            // $columns = [];
-            // foreach (range(1, $this->NumberOfColumns) as $i) {
-            //     $colName = 'Cell' . $i;
-            //     $columns[$colName] = function ($record, $column, $gridField) {
-            //         $colField = HTMLEditorField::create($column);
-            //         $colField->setEditorConfig('cellTinyMCE')
-            //             ->setRows(4)
-            //             ->setTitle('');
-            //         return $colField;
-            //     };
-            //     $columns[$colName] = function ($record, $column, $gridField) {
-            //         return $record->{$column};
-            //     };
-            // }
-
-            // $dataColumns->setDisplayFields($columns);
+            $gridConfig->removeComponentsByType(GridFieldAddExistingAutocompleter::class);
+            $gridConfig->removeComponentsByType(GridFieldFilterHeader::class);
         }
 
         // Use dropdown field so we can limit the range of numbers
