@@ -34,11 +34,19 @@ table-block__table--td-halign-{$AlignBodyCelH}
           <% end_if %>
         <% else_if $Last && not $First %>
           <% if not $Up.LastRowIsFooter %>
-            <% include TableRow th=$Up.FirstColumnIsHeader, widths=$Up.ColumnProportions %>
+            <% if $Up.FirstRowIsHeader %>
+              <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, widths=$Up.ColumnProportions %>
+            <% else_if not $Up.FirstRowIsHeader %>
+              <% include TableRow th=$Up.FirstColumnIsHeader, widths=$Up.ColumnProportions %>
+            <% end_if %>
           <% end_if %>
         <% else_if $First && $Last %>
-          <% if not $Up.FirstRowIsHeader && not $Up.LastRowIsFooter %>
-            <% include TableRow th=$Up.FirstColumnIsHeader, widths=$Up.ColumnProportions %>
+          <% if not $Up.LastRowIsFooter %>
+            <% if $Up.FirstRowIsHeader %>
+              <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, widths=$Up.ColumnProportions %>
+            <% else_if not $Up.FirstRowIsHeader %>
+              <% include TableRow th=$Up.FirstColumnIsHeader, widths=$Up.ColumnProportions %>
+            <% end_if %>
           <% end_if %>
         <% else_if not $First && not $Last %>
           <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, widths=$Up.ColumnProportions %>
