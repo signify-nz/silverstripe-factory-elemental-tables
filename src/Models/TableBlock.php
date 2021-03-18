@@ -251,6 +251,11 @@ class TableBlock extends BaseElement
         return $heading;
     }
 
+    public function getTotalColumns()
+    {
+        return $this->NumberOfColumns;
+    }
+
     public function getColumnProportions()
     {
         $proportions = ArrayList::create();
