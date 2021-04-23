@@ -100,10 +100,11 @@ class TableBlock extends BaseElement
 
         if ($gridField) {
             $gridConfig = $gridField->getConfig();
-            $gridConfig->addComponent(new GridFieldSortableRows('SortOrder'))
-                ->addComponent(new GridFieldDeleteAction());
+            $gridConfig->addComponent(new GridFieldSortableRows('SortOrder'));
             $gridConfig->removeComponentsByType(GridFieldAddExistingAutocompleter::class);
+            $gridConfig->removeComponentsByType(GridFieldDeleteAction::class);
             $gridConfig->removeComponentsByType(GridFieldFilterHeader::class);
+            $gridConfig->addComponent(new GridFieldDeleteAction(false));
         }
 
         // Use dropdown field so we can limit the range of numbers
