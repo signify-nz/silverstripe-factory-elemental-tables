@@ -1,5 +1,7 @@
 <div class="table-block">
-  <h2>$Title</h2>
+  <% if $Title && $ShowTitle %>
+    <h2>$Title</h2>
+  <% end_if %>
   <% if $TableDescription %>
     $TableDescription
   <% end_if %>
