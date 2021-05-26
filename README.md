@@ -126,4 +126,4 @@ Set a percentage width for the column.  There will be one field per column (as d
 
 ### Other
 
-Be aware that 
+Be aware that this package does not come with css.  Settings that provide classes to trigger visual changes (Zebra rows, Border Outer etc.) only provide a framework for you to build your theme around.
