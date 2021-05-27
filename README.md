@@ -51,7 +51,7 @@ This tab contains settings that edit the layout and display of the table, rows, 
 
 **First row is header**
 
-Enable this to set the first row (first Table Item) as the table header (<thead>).
+Enable this to set the first row (first Table Item) as the table header (\<thead\>).
 
 **Border header**
 
@@ -67,7 +67,7 @@ Set the horizontal alignment of the table header cell content.
 
 **Last row is footer**
 
-Enable this to set the last row (last Table Item) as the table footer (<tfoot>).
+Enable this to set the last row (last Table Item) as the table footer (\<tfoot\>).
 
 **Border footer**
 
@@ -89,19 +89,19 @@ Turn the first cell in each row into a <th>. Also alters how the table will be d
 
 **Border first column**
 
-Toggle a class to allow for an alternate border theme for the table <th> cells (default element style or special class style).
+Toggle a class to allow for an alternate border theme for the table \<th\> cells (default element style or special class style).
 
 **Header Column Vertical Alignment**
 
-Set the vertical alignment of the table body <th> cell content.
+Set the vertical alignment of the table body \<th\> cell content.
 
 **Header Column Horizontal Alignment**
 
-Set the horizontal alignment of the table body <th> cell content.
+Set the horizontal alignment of the table body \<th\> cell content.
 
 **Border Outer**
 
-Toggle a class to allow for an alternate border theme aound the outside of the table.
+Toggle a class to allow for an alternate border theme around the outside of the table.
 
 **Border rows**
 
@@ -113,15 +113,15 @@ Toggle a class to allow for an alternate vertical border theme inside the table.
 
 **Zebra rows**
 
-Toggle a class to allow for an alternate theme on every second row in the table (aften used for background shading, but may include other attributes as determined by the theme css).
+Toggle a class to allow for an alternate theme on every second row in the table (often used for background shading, but may include other attributes as determined by the theme css).
 
 **Cell Vertical Alignment**
 
-Set the vertical alignment of the table <td> cell content.
+Set the vertical alignment of the table \<td\> cell content.
 
 **Cell Horizontal Alignment**
 
-Set the horizontal alignment of the table <td> cell content.
+Set the horizontal alignment of the table \<td\> cell content.
 
 **Proportion allocated to Column**
 
