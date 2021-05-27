@@ -29,11 +29,13 @@ Detailed descriptions of the available options are below.
 
 This tab contains fields for content displayed around the outside of the table.  It also contains settings that change how the entire table will render.
 
-**Table description** - An open section of text, typically displayed above the table
+**Table title** - An plain text field for the Block/table title, marked up as a level 2 heading if **Displayed** is checked.
 
-**Table caption** - The caption for the table
+**Table description** - A limited WYSIWYG field, typically displayed above the table.
 
-**Number of Columns** - This is the number of columns the table contains.  Changing this field will adjust the number of Cell fields available to Table Item objects
+**Table caption** - A plain textarea field for the HTML caption for the table, display is controlled by css.
+
+**Number of Columns** - This is the number of columns the table contains (maximum of 8).  Changing this field will adjust the number of Cell fields available to Table Item objects
 
 > Remember to save the Table block if you change the Number of Columns value.  Only after saving will the number of fields in the Table Items tab change.
 
@@ -41,7 +43,7 @@ This tab contains fields for content displayed around the outside of the table. 
 
 The Table Items tab is a listing of Table Item objects.  Each Table Item represents a row in the Table.
 
-Table Item objects contain a WYSIWYG textarea field for each cell in the row.
+Table Item objects contain a limited WYSIWYG textarea field for each cell in the row.
 
 ### Settings tab
 
@@ -49,81 +51,84 @@ This tab contains settings that edit the layout and display of the table, rows, 
 
 **First row is header**
 
-Enable this to set the first row (first Table Item) as the table header (<thead>)
+Enable this to set the first row (first Table Item) as the table header (<thead>).
 
 **Border header**
 
-Toggle a class to allow for an alternate border theme for the table header
+Toggle a class to allow for an alternate border theme for the table header. Uncheck and it will use the default element styles, check to apply the class styles.
 
 **Header Vertical Alignment**
 
-Set the vertical alignment of the table header cell content
+Set the vertical alignment of the table header cell content.
 
 **Header Horizontal Alignment**
 
-Set the horizontal alignment of the table header cell content
+Set the horizontal alignment of the table header cell content.
 
 **Last row is footer**
 
-Enable this to set the last row (last Table Item) as the table footer (<tfoot>)
+Enable this to set the last row (last Table Item) as the table footer (<tfoot>).
 
 **Border footer**
 
-Toggle a class to allow for an alternate border theme for the table footer
+Toggle a class to allow for an alternate border theme for the table footer. Uncheck and it will use the default element styles, check to apply the class styles.
 
 **Footer Vertical Alignment**
 
-Set the vertical alignment of the table footer cell content
+Set the vertical alignment of the table footer cell content.
 
 **Footer Horizontal Alignment**
 
-Set the horizontal alignment of the table footer cell content
+Set the horizontal alignment of the table footer cell content.
 
 **First column is header**
 
-Turn the first cell in each row into a th.  Alters how the table will be displayed at smaller screen sizes.
+Turn the first cell in each row into a <th>. Also alters how the table will be displayed at smaller screen sizes.
 
-> Avoid enabling both this and the "First row is header" option, as it will result in confusing table markup
+> Take care enabling both "First Column is header" and "First row is header", as it can result in confusing table markup if there are not enough rows and columns available to make sense.
 
 **Border first column**
 
-Toggle a class to allow for an alternate border theme for the table th cells
+Toggle a class to allow for an alternate border theme for the table <th> cells (default element style or special class style).
 
 **Header Column Vertical Alignment**
 
-Set the vertical alignment of the table th cell content
+Set the vertical alignment of the table body <th> cell content.
 
 **Header Column Horizontal Alignment**
 
-Set the horizontal alignment of the table th cell content
+Set the horizontal alignment of the table body <th> cell content.
 
 **Border Outer**
 
-Toggle a class to allow for an alternate border theme for the table
+Toggle a class to allow for an alternate border theme aound the outside of the table.
 
 **Border rows**
 
-Toggle a class to allow for an alternate border theme for the table
+Toggle a class to allow for an alternate horizontal border theme inside the table.
 
 **Border cols**
 
-Toggle a class to allow for an alternate border theme for the table
+Toggle a class to allow for an alternate vertical border theme inside the table.
 
 **Zebra rows**
 
-Toggle a class to allow for background shading on every second row in the table
+Toggle a class to allow for an alternate theme on every second row in the table (aften used for background shading, but may include other attributes as determined by the theme css).
 
 **Cell Vertical Alignment**
 
-Set the vertical alignment of the table td cell content
+Set the vertical alignment of the table <td> cell content.
 
 **Cell Horizontal Alignment**
 
-Set the horizontal alignment of the table td cell content
+Set the horizontal alignment of the table <td> cell content.
 
 **Proportion allocated to Column**
-Set a percentage width for the column.  There will be one field per column (as defined by the Number of Columns field in the Content tab)
+
+Set a percentage width for the column.  There will be one field per column (as defined by the Number of Columns field in the Content tab). These values should sum to 100%.
+
+> If over, the earlier columns will assume priority. If under, the browser will attempt to distribute as evenly as possible while respecting the larger proportions.
 
 ### Other
 
-Be aware that this package does not come with css.  Settings that provide classes to trigger visual changes (Zebra rows, Border Outer etc.) only provide a framework for you to build your theme around.
+Be aware that this package does not come with css.  Settings that provide classes to trigger visual changes (Zebra rows, Border outer etc.) only provide a framework for you to build your theme around.
