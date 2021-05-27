@@ -55,7 +55,7 @@ Enable this to set the first row (first Table Item) as the table header (\<thead
 
 **Border header**
 
-Toggle a class to allow for an alternate border theme for the table header. Uncheck and it will use the default element styles, check to apply the class styles.
+Toggle a class to allow for an alternate border theme for the table header. Uncheck and it will use the default element styles, check to apply the class styles (if any are implemented).
 
 **Header Vertical Alignment**
 
@@ -71,7 +71,7 @@ Enable this to set the last row (last Table Item) as the table footer (\<tfoot\>
 
 **Border footer**
 
-Toggle a class to allow for an alternate border theme for the table footer. Uncheck and it will use the default element styles, check to apply the class styles.
+Toggle a class to allow for an alternate border theme for the table footer. Uncheck and it will use the default element styles, check to apply the class styles (if any are implemented).
 
 **Footer Vertical Alignment**
 
