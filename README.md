@@ -38,7 +38,7 @@ Signify\Factory\Models\TableBlock:
 You need to add CSS styles on your site to theme the table block.
 
 ### Screenshots
-[content]: images/content.png
-[table-items]: images/table-items.png
-[settings-1]: images/settings-1.png
-[settings-2]: images/settings-2.png
+![content](docs/en/img/content.png)
+![content](docs/en/img/table-items.png)
+![content](docs/en/img/settings-1.png)
+![content](docs/en/img/settings-2.png)
