@@ -3,13 +3,11 @@
     <h2>$Title</h2>
   <% end_if %>
   <% if $TableDescription %>
-    <div class="table-block__description">
-      <% if $EnableRichLinks %>
-        $TableDescription.RichLinks
-      <% else %>
-        $TableDescription
-      <% end_if %>
-  </div>
+    <% if $EnableRichLinks %>
+      $TableDescription.RichLinks
+    <% else %>
+      $TableDescription
+    <% end_if %>
   <% end_if %>
   <table class="table-block__table
 table-block__table--thead-valign-{$AlignHeadRowV}
