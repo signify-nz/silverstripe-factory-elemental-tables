@@ -47,7 +47,6 @@ class TableBlock extends BaseElement
         'TableCaption' => 'Varchar',
         'NumberOfColumns' => 'Int',
         'FirstRowIsHeader' => 'Boolean',
-        'BoldHeader' => 'Boolean',
         'FirstColumnIsHeader' => 'Boolean',
         'LastRowIsFooter' => 'Boolean',
         'AlignHeadRowV' => "Enum('top,middle,bottom','top')",
@@ -150,8 +149,7 @@ class TableBlock extends BaseElement
 
         foreach ([
             'FirstRowIsHeader' => 'ExtraClass',
-            'BoldHeader' => 'FirstRowIsHeader',
-            'BorderHeader' => 'BoldHeader',
+            'BorderHeader' => 'FirstRowIsHeader',
             'LastRowIsFooter' => 'AlignHeadRowH',
             'BorderFooter' => 'LastRowIsFooter',
             'FirstColumnIsHeader' => 'AlignFootRowH',
