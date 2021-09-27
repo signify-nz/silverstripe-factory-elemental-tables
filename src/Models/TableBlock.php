@@ -34,14 +34,6 @@ class TableBlock extends BaseElement
 
     private static $icon = 'font-icon-block-table-data';
 
-    /**
-     * Whether to automatically augment the links with Web Government Standards compliant attributes and markup.
-     * To support CWP module which comes with the RichLinksExtension.
-     * @config
-     * @var string
-     */
-    private static $enable_rich_links = false;
-
     private static $db = [
         'TableDescription' => 'HTMLText',
         'TableCaption' => 'Varchar',
@@ -275,15 +267,5 @@ class TableBlock extends BaseElement
             $proportions[] = DBField::create_field('HTMLFragment', $value, $key);
         }
         return $proportions;
-    }
-
-
-    public function getEnableRichLinks()
-    {
-        if ($this->config()->get('enable_rich_links')) {
-            return true;
-        }
-
-        return false;
     }
 }

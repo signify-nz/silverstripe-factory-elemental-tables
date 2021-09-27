@@ -3,11 +3,7 @@
     <h2>$Title</h2>
   <% end_if %>
   <% if $TableDescription %>
-    <% if $EnableRichLinks %>
-      $TableDescription.RichLinks
-    <% else %>
-      $TableDescription
-    <% end_if %>
+    $TableDescription
   <% end_if %>
   <table class="table-block__table
 table-block__table--thead-valign-{$AlignHeadRowV}
@@ -30,37 +26,37 @@ table-block__table--td-halign-{$AlignBodyCelH}
       <caption>$TableCaption</caption>
     <% end_if %>
     <% if $FirstRowIsHeader %>
-      <% include TableHead number=$TotalColumns, widths=$ColumnProportions, richLinks=$Top.EnableRichLinks %>
+      <% include TableHead number=$TotalColumns, widths=$ColumnProportions %>
     <% end_if %>
     <tbody>
       <% loop $TableItems %>
         <% if $First && not $Last %>
           <% if not $Up.FirstRowIsHeader %>
-            <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions, richLinks=$Top.EnableRichLinks %>
+            <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
           <% end_if %>
         <% else_if $Last && not $First %>
           <% if not $Up.LastRowIsFooter %>
             <% if $Up.FirstRowIsHeader %>
-              <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions, richLinks=$Top.EnableRichLinks %>
+              <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
             <% else_if not $Up.FirstRowIsHeader %>
-              <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions, richLinks=$Top.EnableRichLinks %>
+              <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
             <% end_if %>
           <% end_if %>
         <% else_if $First && $Last %>
           <% if not $Up.LastRowIsFooter %>
             <% if $Up.FirstRowIsHeader %>
-              <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions, richLinks=$Top.EnableRichLinks %>
+              <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
             <% else_if not $Up.FirstRowIsHeader %>
-              <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions, richLinks=$Top.EnableRichLinks %>
+              <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
             <% end_if %>
           <% end_if %>
         <% else_if not $First && not $Last %>
-          <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions, richLinks=$Top.EnableRichLinks %>
+          <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
         <% end_if %>
       <% end_loop %>
     </tbody>
     <% if $LastRowIsFooter %>
-      <% include TableFoot number=$TotalColumns, widths=$ColumnProportions, richLinks=$Top.EnableRichLinks %>
+      <% include TableFoot number=$TotalColumns, widths=$ColumnProportions %>
     <% end_if %>
   </table>
 </div>
