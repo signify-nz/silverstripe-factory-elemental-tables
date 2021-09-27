@@ -47,7 +47,14 @@ You need to add CSS styles on your site to theme the table block.
 
 ### Screenshots
 
+Main content
 ![content](docs/en/img/content.png)
+
+Edit cells
 ![content](docs/en/img/table-items.png)
+
+Settings
 ![content](docs/en/img/settings-1.png)
+
+Settings
 ![content](docs/en/img/settings-2.png)
