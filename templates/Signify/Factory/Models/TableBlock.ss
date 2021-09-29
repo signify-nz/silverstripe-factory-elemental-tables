@@ -26,37 +26,15 @@ table-block__table--td-halign-{$AlignBodyCelH}
       <caption>$TableCaption</caption>
     <% end_if %>
     <% if $FirstRowIsHeader %>
-      <% include TableHead number=$TotalColumns, widths=$ColumnProportions %>
+      <% include TableHead %>
     <% end_if %>
     <tbody>
-      <% loop $TableItems %>
-        <% if $First && not $Last %>
-          <% if not $Up.FirstRowIsHeader %>
-            <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
-          <% end_if %>
-        <% else_if $Last && not $First %>
-          <% if not $Up.LastRowIsFooter %>
-            <% if $Up.FirstRowIsHeader %>
-              <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
-            <% else_if not $Up.FirstRowIsHeader %>
-              <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
-            <% end_if %>
-          <% end_if %>
-        <% else_if $First && $Last %>
-          <% if not $Up.LastRowIsFooter %>
-            <% if $Up.FirstRowIsHeader %>
-              <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
-            <% else_if not $Up.FirstRowIsHeader %>
-              <% include TableRow th=$Up.FirstColumnIsHeader, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
-            <% end_if %>
-          <% end_if %>
-        <% else_if not $First && not $Last %>
-          <% include TableRow th=$Up.FirstColumnIsHeader, headingrow=$Up.HeadingRow, number=$Up.TotalColumns, widths=$Up.ColumnProportions %>
-        <% end_if %>
+      <% loop $body %>
+        <% include TableRow %>
       <% end_loop %>
     </tbody>
     <% if $LastRowIsFooter %>
-      <% include TableFoot number=$TotalColumns, widths=$ColumnProportions %>
+      <% include TableFoot %>
     <% end_if %>
   </table>
 </div>
