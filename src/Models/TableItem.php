@@ -4,7 +4,9 @@ namespace Signify\Factory\Models;
 
 use Signify\Factory\Models\TableBlock;
 use SilverStripe\Forms\HTMLEditor\HTMLEditorField;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\FieldType\DBField;
 
 class TableItem extends DataObject
 {
@@ -68,5 +70,34 @@ class TableItem extends DataObject
         $fields->removeByName('TableBlockID');
 
         return $fields;
+    }
+
+    /**
+     * Get a row of cells
+     *
+     * Retrieve cells for this row in the table. Only the number of cells
+     * configured in the containing TableBlock will be returned.
+     *
+     * @return ArrayList
+     */
+    public function getCells()
+    {
+        $cells = [];
+        foreach (range(1, $this->TableBlock->NumberOfColumns) as $cell) {
+            $cells[] = DBField::create_field('HTMLText', $this->{"Cell" . $cell});
+        }
+        $cells = ArrayList::create($cells);
+
+        return $cells;
+    }
+
+    /**
+     * Check if the FirstColumnIsHeader is checked and is the first row
+     *
+     * @return Boolean
+     */
+    public function getFirstCellIsHeader($Position)
+    {
+        return $this->TableBlock->FirstColumnIsHeader == true && $Position == 1;
     }
 }
