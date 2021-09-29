@@ -268,4 +268,30 @@ class TableBlock extends BaseElement
         }
         return $proportions;
     }
+
+    /**
+     * Get the Table items
+     *
+     * Not include the header and footer
+     *
+     * @return ArrayList
+     */
+    public function getBody()
+    {
+        $body = $this->TableItems();
+
+        if ($this->FirstRowIsHeader == true) {
+            $body = $body->exclude([
+                'ID' => $body->First()->ID
+            ]);
+        }
+
+        if ($this->LastRowIsFooter == true) {
+            $body = $body->exclude([
+                'ID' => $body->Last()->ID
+            ]);
+        }
+
+        return $body;
+    }
 }
