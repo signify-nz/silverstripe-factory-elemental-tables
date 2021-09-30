@@ -95,7 +95,7 @@ class TableItem extends DataObject
      *
      * @return bool
      */
-    public function getFirstCellIsHeader($Position)
+    public function getCellIsHeader($Position)
     {
         return $this->TableBlock->FirstColumnIsHeader == true && $Position == 1;
     }
