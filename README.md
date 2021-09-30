@@ -55,6 +55,4 @@ Edit cells
 
 Settings
 ![content](docs/en/img/settings-1.png)
-
-Settings
 ![content](docs/en/img/settings-2.png)
