@@ -93,7 +93,7 @@ class TableItem extends DataObject
     /**
      * Check if the FirstColumnIsHeader is checked and is the first row
      *
-     * @return Boolean
+     * @return bool
      */
     public function getFirstCellIsHeader($Position)
     {
