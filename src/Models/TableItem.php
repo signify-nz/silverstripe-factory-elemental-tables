@@ -84,7 +84,7 @@ class TableItem extends DataObject
     {
         $cells = [];
         foreach (range(1, $this->TableBlock->NumberOfColumns) as $cell) {
-            $cells[] = DBField::create_field('HTMLText', $this->{"Cell" . $cell});
+            $cells[] = DBField::create_field('HTMLText', $this->{'Cell' . $cell});
         }
         $cells = ArrayList::create($cells);
         return $cells;
