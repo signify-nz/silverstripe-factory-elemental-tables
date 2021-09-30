@@ -1,6 +1,6 @@
 <tr>
   <% loop $Cells %>
-    <<% if $Top.getFirstCellIsHeader($Pos) %>th<% else %>td<% end_if %> scope="col" style="width:{$Top.getColumnProportions.offsetGet($Pos)}%;">
+    <<% if $Top.getFirstCellIsHeader($Pos) %>th<% else %>td<% end_if %> scope="col" style="width:{$Top.getColumnProportions($Pos)}%;">
       <div class="hide--lg">$Top.getHeadingRow.offsetGet($Pos(0))</div>
       $Me
     </<% if $Top.getFirstCellIsHeader($Pos) %>th<% else %>td<% end_if %>>

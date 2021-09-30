@@ -2,7 +2,7 @@
   <% with $TableItems.First() %>
     <tr>
       <% loop $Cells %>
-        <th scope="col" style="width: {$Top.ColumnProportions.offsetGet($Pos)}%;">
+        <th scope="col" style="width: {$Up.getColumnProportions($Pos)}%;">
           $Me
         </th>
       <% end_loop %>
