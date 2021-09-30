@@ -117,15 +117,8 @@ class TableItem extends DataObject
      *
      * @return ArrayList
      */
-    public function getColumnProportions()
+    public function getColumnProportions($index)
     {
-        $proportions = ArrayList::create();
-        $cols = $this->TableBlock->NumberOfColumns;
-        foreach (range(0, $cols) as $i) {
-            $key = 'PropCol' . $i;
-            $value = $this->TableBlock->$key;
-            $proportions[] = DBField::create_field('HTMLFragment', $value, $key);
-        }
-        return $proportions;
+        return $this->TableBlock->{'PropCol' . $index};
     }
 }
