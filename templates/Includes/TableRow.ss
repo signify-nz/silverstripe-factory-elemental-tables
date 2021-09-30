@@ -1,8 +1,8 @@
 <tr>
   <% loop $Cells %>
-    <<% if $Top.getFirstCellIsHeader($Pos) %>th<% else %>td<% end_if %> scope="col" style="width: {}%;">
+    <<% if $Top.getFirstCellIsHeader($Pos) %>th<% else %>td<% end_if %> scope="col" style="width:{$Top.getColumnProportions.offsetGet($Pos)}%;">
+      <div class="hide--lg">$Top.getHeadingRow.offsetGet($Pos(0))</div>
       $Me
-    <div class="hide--lg">$Top.headingrow.offsetGet(0)</div>
     </<% if $Top.getFirstCellIsHeader($Pos) %>th<% else %>td<% end_if %>>
   <% end_loop %>
 </tr>

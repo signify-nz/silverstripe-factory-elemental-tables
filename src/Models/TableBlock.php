@@ -243,30 +243,9 @@ class TableBlock extends BaseElement
         return false;
     }
 
-    public function getHeadingRow()
-    {
-        $heading = '';
-        if ($this->FirstRowIsHeader == true) {
-            $heading = $this->TableItems()->First();
-        }
-        return $heading;
-    }
-
     public function getTotalColumns()
     {
         return $this->NumberOfColumns;
-    }
-
-    public function getColumnProportions()
-    {
-        $proportions = ArrayList::create();
-        $cols = $this->NumberOfColumns;
-        foreach (range(1, $cols) as $i) {
-            $key = 'PropCol' . $i;
-            $value = $this->$key;
-            $proportions[] = DBField::create_field('HTMLFragment', $value, $key);
-        }
-        return $proportions;
     }
 
     /**

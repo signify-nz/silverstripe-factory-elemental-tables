@@ -87,7 +87,6 @@ class TableItem extends DataObject
             $cells[] = DBField::create_field('HTMLText', $this->{"Cell" . $cell});
         }
         $cells = ArrayList::create($cells);
-
         return $cells;
     }
 
@@ -99,5 +98,34 @@ class TableItem extends DataObject
     public function getFirstCellIsHeader($Position)
     {
         return $this->TableBlock->FirstColumnIsHeader == true && $Position == 1;
+    }
+
+    /**
+     * Get the header list if the FirstColumnIsHeader is checked
+     *
+     * @return ArrayList
+     */
+    public function getHeadingRow()
+    {
+        if ($this->TableBlock->FirstRowIsHeader == true) {
+            return $this->TableBlock->TableItems()->First()->getCells();
+        }
+    }
+
+    /**
+     * Get the width of the columns
+     *
+     * @return ArrayList
+     */
+    public function getColumnProportions()
+    {
+        $proportions = ArrayList::create();
+        $cols = $this->TableBlock->NumberOfColumns;
+        foreach (range(0, $cols) as $i) {
+            $key = 'PropCol' . $i;
+            $value = $this->TableBlock->$key;
+            $proportions[] = DBField::create_field('HTMLFragment', $value, $key);
+        }
+        return $proportions;
     }
 }
