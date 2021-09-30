@@ -34,14 +34,6 @@ class TableBlock extends BaseElement
 
     private static $icon = 'font-icon-block-table-data';
 
-    /**
-     * Whether to automatically augment the links with Web Government Standards compliant attributes and markup.
-     * To support CWP module which comes with the RichLinksExtension.
-     * @config
-     * @var string
-     */
-    private static $enable_rich_links = false;
-
     private static $db = [
         'TableDescription' => 'HTMLText',
         'TableCaption' => 'Varchar',
@@ -251,39 +243,34 @@ class TableBlock extends BaseElement
         return false;
     }
 
-    public function getHeadingRow()
-    {
-        $heading = '';
-        if ($this->FirstRowIsHeader == true) {
-            $heading = $this->TableItems()->First();
-        }
-        return $heading;
-    }
-
     public function getTotalColumns()
     {
         return $this->NumberOfColumns;
     }
 
-    public function getColumnProportions()
+    /**
+     * Get the Table items
+     *
+     * Not include the header and footer
+     *
+     * @return ArrayList
+     */
+    public function getBody()
     {
-        $proportions = ArrayList::create();
-        $cols = $this->NumberOfColumns;
-        foreach (range(1, $cols) as $i) {
-            $key = 'PropCol' . $i;
-            $value = $this->$key;
-            $proportions[] = DBField::create_field('HTMLFragment', $value, $key);
-        }
-        return $proportions;
-    }
+        $body = $this->TableItems();
 
-
-    public function getEnableRichLinks()
-    {
-        if ($this->config()->get('enable_rich_links')) {
-            return true;
+        if ($this->FirstRowIsHeader == true) {
+            $body = $body->exclude([
+                'ID' => $body->First()->ID
+            ]);
         }
 
-        return false;
+        if ($this->LastRowIsFooter == true) {
+            $body = $body->exclude([
+                'ID' => $body->Last()->ID
+            ]);
+        }
+
+        return $body;
     }
 }
