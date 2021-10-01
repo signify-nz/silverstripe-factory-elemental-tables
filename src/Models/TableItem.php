@@ -87,6 +87,8 @@ class TableItem extends DataObject
             $cells[] = DBField::create_field('HTMLText', $this->{'Cell' . $cell});
         }
         $cells = ArrayList::create($cells);
+        $this->TableBlock->extend('formatCells', $cells);
+
         return $cells;
     }
 

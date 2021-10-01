@@ -273,4 +273,17 @@ class TableBlock extends BaseElement
 
         return $body;
     }
+
+    /**
+     * Get TableDescription field
+     *
+     * @return string
+     */
+    public function getTableDescription()
+    {
+        $description = $this->dbObject('TableDescription');
+        $this->extend('formatDescription', $description);
+
+        return $description;
+    }
 }
