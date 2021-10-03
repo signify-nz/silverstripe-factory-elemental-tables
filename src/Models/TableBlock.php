@@ -279,7 +279,7 @@ class TableBlock extends BaseElement
      *
      * @return string
      */
-    public function getTableDescription()
+    public function TableDescription()
     {
         $description = $this->dbObject('TableDescription');
         $this->extend('formatDescription', $description);
