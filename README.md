@@ -3,18 +3,13 @@
 
 An elemental block to enable more control over the responsiveness of tables.
 
-## Require via composer.json
+## Installation
 
-```json
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "git@gitea:Factory/silverstripe-factory-elemental-tables.git"
-    }
-],
-"require": {
-    "signify-nz/silverstripe-factory-elemental-tables": "dev-master"
-}
+Install via [composer](https://getcomposer.org):
+
+```bash
+composer require signify-nz/silverstripe-factory-elemental-tables
+
 ```
 
 ## Usage
@@ -35,6 +30,19 @@ An elemental block to enable more control over the responsiveness of tables.
 ### Styles
 
 You need to add CSS styles on your site to theme the table block.
+
+## Extension
+
+There are two extension points to allow for overriding how the
+description and cells are rendered:
+
+* `formatDescription` on `TableBlock`
+* `formatCells` on `TableItem`
+
+Both extension points pass an object by reference and expect that object
+to be modified or replaced. `formatDescription` is passed a DBField of
+the description; `formatCells` is passed an `ArrayList` of `DBField`s
+representing each (visible) cell.
 
 ### Screenshots
 
