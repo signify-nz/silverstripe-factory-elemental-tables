@@ -9,11 +9,11 @@ An elemental block to enable more control over the responsiveness of tables.
 "repositories": [
     {
         "type": "vcs",
-        "url": "git@gitea:Factory/silverstripe-factory-elemental-tables.git"
+        "url": "git@github.com:signify-nz/silverstripe-factory-elemental-tables.git"
     }
 ],
 "require": {
-    "signify-nz/silverstripe-factory-elemental-tables": "dev-master"
+    "signify-nz/silverstripe-factory-elemental-tables": "^1"
 }
 ```
 
@@ -32,18 +32,22 @@ An elemental block to enable more control over the responsiveness of tables.
 * Provide the CSS classes for alignments and styles, e.g. "Zebra rows"
 * Set the width for each column
 
-### Enable RichLinks for CWP site
-
-In your ```_config.yml``` file
-
-```yml
-Signify\Factory\Models\TableBlock:
-  enable_rich_links: true
-```
-
 ### Styles
 
 You need to add CSS styles on your site to theme the table block.
+
+## Extension
+
+There are two extension points to allow for overriding how the
+description and cells are rendered:
+
+* `formatDescription` on `TableBlock`
+* `formatCells` on `TableItem`
+
+Both extension points pass an object by reference and expect that object
+to be modified or replaced. `formatDescription` is passed a DBField of
+the description; `formatCells` is passed an `ArrayList` of `DBField`s
+representing each (visible) cell.
 
 ### Screenshots
 
