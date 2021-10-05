@@ -3,13 +3,18 @@
 
 An elemental block to enable more control over the responsiveness of tables.
 
-## Installation
+## Require via composer.json
 
-Install via [composer](https://getcomposer.org):
-
-```bash
-composer require signify-nz/silverstripe-factory-elemental-tables
-
+```json
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "git@github.com:signify-nz/silverstripe-factory-elemental-tables.git"
+    }
+],
+"require": {
+    "signify-nz/silverstripe-factory-elemental-tables": "^1"
+}
 ```
 
 ## Usage
