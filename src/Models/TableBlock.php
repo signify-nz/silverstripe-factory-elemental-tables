@@ -257,20 +257,23 @@ class TableBlock extends BaseElement
      */
     public function getBody()
     {
+       
         $body = $this->TableItems();
 
-        if ($this->FirstRowIsHeader == true) {
-            $body = $body->exclude([
-                'ID' => $body->First()->ID
-            ]);
-        }
+        if ($body->count() > 0) {
 
-        if ($this->LastRowIsFooter == true) {
-            $body = $body->exclude([
-                'ID' => $body->Last()->ID
-            ]);
-        }
+            if ($this->FirstRowIsHeader == true) {
+                $body = $body->exclude([
+                    'ID' => $body->First()->ID
+                ]);
+            }
 
+            if ($this->LastRowIsFooter == true) {
+                $body = $body->exclude([
+                    'ID' => $body->Last()->ID
+                ]);
+            }
+        }
         return $body;
     }
 
