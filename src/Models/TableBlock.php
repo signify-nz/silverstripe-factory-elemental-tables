@@ -260,7 +260,7 @@ class TableBlock extends BaseElement
        
         $body = $this->TableItems();
 
-        if($body->count() > 0) {
+        if ($body->count() > 0) {
 
             if ($this->FirstRowIsHeader == true) {
                 $body = $body->exclude([
