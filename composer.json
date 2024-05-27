@@ -22,9 +22,9 @@
     "email": "info@signify.co.nz"
   },
   "require": {
-    "silverstripe/cms": "^4",
-    "dnadesign/silverstripe-elemental": "^4",
-    "symbiote/silverstripe-gridfieldextensions": "^3",
+    "silverstripe/cms": "^5",
+    "dnadesign/silverstripe-elemental": "^5",
+    "symbiote/silverstripe-gridfieldextensions": "^4",
     "undefinedoffset/sortablegridfield": "^2"
   },
   "autoload": {
